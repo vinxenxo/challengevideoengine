@@ -8,3 +8,5 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Keep Challenge Engine as a single anchored editorial experience with typed content data and reusable section components, because its architecture is the product narrative.
