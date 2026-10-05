@@ -1,0 +1,40 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: challenge-engine:latest
+    container_name: challenge-engine-web
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      HOST: 0.0.0.0
+      PORT: 3000
+    expose:
+      - "3000"
+    networks:
+      - internal
+
+  caddy:
+    image: caddy:2-alpine
+    container_name: challenge-engine-caddy
+    restart: unless-stopped
+    depends_on:
+      - web
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    networks:
+      - internal
+
+networks:
+  internal:
+
+volumes:
+  caddy_data:
+  caddy_config:

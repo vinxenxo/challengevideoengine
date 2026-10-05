@@ -1,0 +1,11 @@
+node_modules
+.output
+dist
+.git
+.github
+.lovable
+.env*
+*.log
+Dockerfile
+docker-compose.yml
+Caddyfile
