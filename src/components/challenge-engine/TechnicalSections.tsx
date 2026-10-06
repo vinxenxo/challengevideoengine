@@ -7,7 +7,7 @@ import { ProceduralVisual } from "./ProceduralVisual";
 const seeds = [12345, 314159, 54321, 7770001, 998877];
 
 export function Determinism({ seed, onSeedChange }: { seed: number; onSeedChange: (seed: number) => void }) {
-  function regenerate() { const i = seeds.indexOf(seed); onSeedChange(seeds[(i + 1) % seeds.length]); }
+  function regenerate() { const i = seeds.indexOf(seed); onSeedChange(seeds[(i + 1) % seeds.length] ?? 12345); }
   return <section className="section determinism-section" id="determinism"><div className="section-inner"><SectionHeader label="08 / DETERMINISM" title={<>SAME SEED.<br /><span>SAME TRUTH.</span></>} description="Determinism is not a visual trick. It is the foundation that makes production reproducible, inspectable and testable." /><div className="determinism-layout"><CodePanel label="DEMO / VISUALIZATION" className="seed-panel"><div className="seed-control"><label htmlFor="seed-value"><Hash size={15} /> SEED</label><input id="seed-value" value={seed} readOnly /><button type="button" onClick={regenerate}><RefreshCcw size={15} /> REGENERATE</button></div><div className="run-comparison"><div><TechnicalLabel>RUN A</TechnicalLabel><Check /><span>STRUCTURAL OUTPUT</span></div><div><TechnicalLabel>RUN B</TechnicalLabel><Check /><span>STRUCTURAL OUTPUT</span></div><strong>=</strong></div><div className="result-identical"><ShieldCheck /><span>RESULT</span><b>IDENTICAL STRUCTURAL OUTPUT</b></div></CodePanel><div className="rng-separation"><TechnicalLabel>SEPARATED RESPONSIBILITY</TechnicalLabel><div><span>STRUCTURAL RNG</span><b>≠</b><span>MUSIC RNG <small>TARGET ARCHITECTURE</small></span><b>≠</b><span>PRESENTATION STATE</span></div><p>Randomness must be separated by responsibility.</p></div></div></div></section>;
 }
 
