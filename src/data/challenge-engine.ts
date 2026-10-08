@@ -1,67 +1,124 @@
 export type StatusTone = "active" | "closed" | "next" | "planned" | "unknown";
 
-export type Challenge = {
-  id: string;
-  name: string;
-  version: string;
-  assetFamily: string;
-  status: StatusTone;
-};
+/** Current project state. Single source for every status mention on the page. */
+export const projectStatus = {
+  baseline: "C11-D / D7.5",
+  baselineStatus: "FROZEN",
+  next: "D8.0 / MEDIA QA + RELEASE PIPELINE",
+  challengeFormats: 9,
+  visualWorlds: 5,
+  productionCases: 90,
+  archive: "ChallengeEngineV01_STATELESS_C11-D_7.5_V8_FROZEN_20261008_111052.zip",
+} as const;
 
-export const challenges: Challenge[] = [
-  { id: "CHALLENGE_001", name: "KEY", version: "v1.0", assetFamily: "fam_001", status: "closed" },
-  { id: "CHALLENGE_002", name: "PARKING", version: "v1.0", assetFamily: "fam_garage_01", status: "closed" },
-  { id: "CHALLENGE_003", name: "PILOT", version: "v2.0", assetFamily: "fam_001", status: "closed" },
-  { id: "CHALLENGE_004", name: "PARKING V2", version: "v2.0", assetFamily: "fam_garage_01", status: "closed" },
-  { id: "CHALLENGE_005", name: "HIT", version: "v1.0", assetFamily: "UNKNOWN", status: "unknown" },
-  { id: "CHALLENGE_006", name: "CATCH", version: "UNKNOWN", assetFamily: "UNKNOWN", status: "unknown" },
-  { id: "CHALLENGE_007", name: "FIND", version: "UNKNOWN", assetFamily: "UNKNOWN", status: "unknown" },
-  { id: "CHALLENGE_008", name: "CHOOSE", version: "UNKNOWN", assetFamily: "UNKNOWN", status: "unknown" },
-  { id: "CHALLENGE_009", name: "COUNT", version: "UNKNOWN", assetFamily: "UNKNOWN", status: "unknown" },
-];
+export const navItems = [
+  ["WHAT IT IS", "#what"],
+  ["EXPERIENCE", "#experience"],
+  ["CHALLENGES", "#challenges"],
+  ["VISUAL WORLDS", "#worlds"],
+  ["HOW IT WORKS", "#how"],
+  ["ROADMAP", "#roadmap"],
+] as const;
+
+export const experienceParts = [
+  { title: "CHALLENGE", text: "The viewer gets a clear challenge or objective." },
+  { title: "VISUAL WORLD", text: "The same idea can live inside different visual styles and environments." },
+  { title: "MOTION", text: "Movement creates tension, focus and visual interest." },
+  { title: "SOUND", text: "Audio helps give the experience rhythm and identity." },
+] as const;
+
+export const steps = [
+  { id: "01", title: "CHOOSE THE CHALLENGE", text: "Select the challenge format and its intended experience." },
+  { id: "02", title: "GIVE IT A VISUAL IDENTITY", text: "Pair the challenge with a visual world, assets, typography and editorial direction." },
+  { id: "03", title: "ADD MOTION AND SOUND", text: "Create the audiovisual rhythm that makes the challenge feel alive." },
+  { id: "04", title: "PREPARE IT FOR DELIVERY", text: "Organize the result for the intended vertical/social format and production workflow." },
+] as const;
 
 export const contentWorlds = [
-  { index: "01", title: "CHALLENGE", tag: "MECHANIC-DRIVEN", icon: "game", text: "Interactive-looking visual challenges generated from deterministic gameplay mechanics.", details: ["KEY", "PARKING", "PILOT", "HIT", "CATCH", "FIND", "CHOOSE", "COUNT"] },
-  { index: "02", title: "VISUAL LOOPS", tag: "PURE PROCEDURAL MOTION", icon: "loop", text: "Continuous generative visual systems designed around mathematical motion, rhythm and visual grammar.", details: ["GEOMETRIC WAVES", "FRACTAL BLOOM", "SACRED SYMMETRY", "LIVING PARTICLES", "INVISIBLE FORCES"] },
-  { index: "03", title: "VISUAL DRILLS", tag: "ATTENTION / TRACKING", icon: "target", text: "Motion-driven visual drills designed around tracking, saccades, pursuit and peripheral attention.", details: ["TRACKING", "SACCADE", "PURSUIT", "PERIPHERAL"] },
+  { index: "01", title: "CHALLENGE VIDEOS", visual: "particles", text: "Challenge-driven content built around clear objectives, visual tension and a defined outcome." },
+  { index: "02", title: "VISUAL LOOPS", visual: "bloom", text: "Continuous generative visuals designed around mathematical motion, rhythm and visual beauty." },
+  { index: "03", title: "VISUAL DRILLS", visual: "forces", text: "Motion-driven experiences designed to hold attention and explore tracking, pursuit, saccades and peripheral awareness." },
 ] as const;
+
+/** Names only: mechanics are not documented here, so descriptors stay restrained. */
+export const challenges = ["KEY", "PARKING", "PILOT", "PARKING V2", "HIT", "CATCH", "FIND", "CHOOSE", "COUNT"] as const;
 
 export const loopFamilies = [
   { name: "GEOMETRIC WAVES", type: "waves", text: "Waves, lines and mathematical fields." },
   { name: "FRACTAL BLOOM", type: "bloom", text: "Fractals, expansion and symmetry." },
-  { name: "SACRED SYMMETRY", type: "symmetry", text: "Radial structures with controlled clipping." },
-  { name: "LIVING PARTICLES", type: "particles", text: "Particles, trajectories and a restrained spatial grid." },
-  { name: "INVISIBLE FORCES", type: "forces", text: "Vector fields made legible through particle paths." },
+  { name: "SACRED SYMMETRY", type: "symmetry", text: "Radial structures and controlled symmetry." },
+  { name: "LIVING PARTICLES", type: "particles", text: "Particles, trajectories and spatial movement." },
+  { name: "INVISIBLE FORCES", type: "forces", text: "Vector fields expressed through moving particles." },
+] as const;
+
+export const benefits = [
+  { title: "REUSE", text: "Visual elements can be reused intelligently across formats." },
+  { title: "VARIETY", text: "Different challenge formats can live inside different visual worlds." },
+  { title: "IDENTITY", text: "The overall experience remains coherent instead of becoming a collection of unrelated templates." },
+] as const;
+
+export const possibilities = [
+  { title: "ONE CHALLENGE", text: "The mechanic defines the experience." },
+  { title: "MANY VISUAL IDENTITIES", text: "Different visual worlds can express the same production philosophy." },
+  { title: "REPEATABLE CREATION", text: "The system is designed for repeatable output rather than one-off manual construction." },
+  { title: "CONSISTENT BRAND LANGUAGE", text: "A reusable visual system makes it possible to grow a recognizable content identity." },
+] as const;
+
+export const evolution = [
+  { title: "CHALLENGE ORIGINS", text: "Recovering and organizing the original challenge ideas.", meta: "C11-A / C11-B" },
+  { title: "VISUAL MATURITY", text: "Developing strong visual loops, drills, presentation and audiovisual direction.", meta: "C11-C · FROZEN" },
+  { title: "PRODUCTION FOUNDATION", text: "Bringing challenge content into the same disciplined production framework.", meta: "C11-D · D0–D7.5" },
+  { title: "NEXT: MEDIA & RELEASE", text: "Validating the final media QA and release layer.", meta: "D8.0 · NEXT" },
+] as const;
+
+export const stages = [
+  { title: "FOUNDATION", status: "COMPLETED", tone: "closed", text: "Challenge recovery, visual direction, reusable assets, audio foundation and production contracts." },
+  { title: "PRODUCTION SYSTEM", status: "COMPLETED", tone: "closed", text: "Requests, personalization, provenance, seed governance and the canonical Challenge production catalog." },
+  { title: "MEDIA + RELEASE", status: "CURRENT", tone: "next", text: "D8 — Media QA and Release Pipeline." },
+] as const;
+
+export const progression = [
+  { title: "FOUNDATION", state: "done" },
+  { title: "PRODUCTION SYSTEM", state: "done", note: "D7 FROZEN" },
+  { title: "MEDIA QA", state: "current", note: "D8 CURRENT" },
+  { title: "RELEASE", state: "planned" },
+  { title: "EXPANSION", state: "planned" },
 ] as const;
 
 export const roadmap = [
   { id: "D0", title: "BASELINE", detail: "Inventory · Challenge recovery", status: "CLOSED", tone: "closed" },
   { id: "D1", title: "VISUAL / EDITORIAL NORMALIZATION", detail: "Layout · Presentation", status: "CLOSED", tone: "closed" },
   { id: "D2", title: "DECLARATIVE ASSET FAMILIES", detail: "Role evidence · Canonical binding", status: "CLOSED", tone: "closed" },
-  { id: "D3", title: "PROCEDURAL MUSIC V5", detail: "Shared deterministic music architecture", status: "NEXT", tone: "next" },
-  { id: "D4", title: "PRODUCTION REQUEST", detail: "Personalization · GUI / CLI parity", status: "PLANNED", tone: "planned" },
-  { id: "D5", title: "ARTIFACT TOPOLOGY", detail: "Provenance", status: "PLANNED", tone: "planned" },
-  { id: "D6", title: "SEED REGISTRY", detail: "Governance", status: "PLANNED", tone: "planned" },
-  { id: "D7", title: "CHALLENGE PRODUCTION MATRIX", detail: "Catalog", status: "PLANNED", tone: "planned" },
-  { id: "D8", title: "MEDIA QA", detail: "Release pipeline", status: "PLANNED", tone: "planned" },
+  { id: "D3", title: "PROCEDURAL MUSIC V5", detail: "Shared deterministic music architecture", status: "CLOSED", tone: "closed" },
+  { id: "D4", title: "PRODUCTION REQUEST", detail: "Personalization · GUI / CLI parity", status: "CLOSED", tone: "closed" },
+  { id: "D5", title: "ARTIFACT TOPOLOGY", detail: "Provenance", status: "CLOSED", tone: "closed" },
+  { id: "D6", title: "SEED REGISTRY", detail: "Governance", status: "CLOSED", tone: "closed" },
+  { id: "D7", title: "CHALLENGE PRODUCTION MATRIX", detail: "Canonical catalog · 90 validated production cases", status: "FROZEN", tone: "closed" },
+  { id: "D7.5", title: "CONSOLIDATED BASELINE", detail: "Frozen C11-D baseline", status: "CLOSED", tone: "closed" },
+  { id: "D8.0", title: "MEDIA QA", detail: "Release pipeline", status: "NEXT", tone: "next" },
   { id: "D9", title: "SUITE / PRODUCER", detail: "Maintenance · Catalog / Config", status: "PLANNED", tone: "planned" },
   { id: "D10", title: "NEW MECHANICS", detail: "New mechanics come last. Production robustness comes first.", status: "PLANNED", tone: "planned" },
 ] as const;
 
 export const principles = [
-  ["01", "DETERMINISTIC", "Same inputs. Same structural result."],
-  ["02", "DECLARATIVE", "Configuration should describe the system."],
-  ["03", "SEPARATED", "Simulation truth stays isolated from presentation."],
-  ["04", "REUSABLE", "One capability should not become three duplicated pipelines."],
-  ["05", "TRACEABLE", "Every generated artifact should have a lineage."],
-  ["06", "FROZEN WHEN CERTIFIED", "Stable contracts stay stable until evidence justifies change."],
+  ["REPEATABLE", "The same defined inputs lead to the same structural result."],
+  ["MODULAR", "Visual, audio and production capabilities can evolve independently."],
+  ["SEPARATED", "Gameplay truth is protected from presentation changes."],
+  ["REUSABLE", "Capabilities are built to support many content variations."],
+  ["TRACEABLE", "Production decisions remain connected to their outputs."],
+  ["CONTROLLED", "Certified foundations stay stable instead of changing accidentally."],
 ] as const;
 
-export const architectureLayers = [
-  { title: "GAMEPLAY TRUTH", meta: "Simulation / Rules", tone: "cyan" },
-  { title: "RESULT / FRAMES", meta: "winning_frame etc.", tone: "violet" },
-  { title: "PRESENTATION", meta: "Declarative", tone: "cyan" },
-  { title: "AUDIO", meta: "Production layer", tone: "amber" },
-  { title: "PROVENANCE", meta: "Traceable", tone: "acid" },
-  { title: "DELIVERY LAYER", meta: "Social / Review / Production Profiles", tone: "violet" },
+export const isList = [
+  "A creative production system for challenge-driven audiovisual content.",
+  "A framework for repeatable visual experiences.",
+  "A foundation for scalable challenge content.",
+] as const;
+
+export const isNotList = [
+  "A conventional video editor.",
+  "A library of prerecorded videos.",
+  "A single game.",
+  "A generic motion-template marketplace.",
+  "A public self-service SaaS product yet.",
 ] as const;
