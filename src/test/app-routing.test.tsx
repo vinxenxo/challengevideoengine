@@ -5,13 +5,15 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 
 import { routeTree } from "@/routeTree.gen";
 
-function renderAt(path: string) {
+async function renderAt(path: string) {
   const queryClient = new QueryClient();
   const router = createRouter({
     routeTree,
     context: { queryClient },
     history: createMemoryHistory({ initialEntries: [path] }),
   });
+  // Resolve the initial match first so the shell renders the route, not a pending state.
+  await router.load();
   return render(<RouterProvider router={router} />);
 }
 
@@ -30,7 +32,7 @@ function paintedText() {
 // routes are rewritten as the app is built and this must keep passing.
 describe("App routing", () => {
   it("renders the index route", async () => {
-    renderAt("/");
+    await renderAt("/");
 
     await waitFor(() => expect(paintedText()).not.toBe(""));
   });
@@ -38,7 +40,7 @@ describe("App routing", () => {
   it("renders the not-found route", async () => {
     vi.spyOn(console, "warn").mockImplementation(() => undefined);
 
-    renderAt("/this-route-does-not-exist");
+    await renderAt("/this-route-does-not-exist");
 
     await waitFor(() => expect(paintedText()).not.toBe(""));
   });
