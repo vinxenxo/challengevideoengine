@@ -20,20 +20,26 @@ afterEach(() => {
   vi.restoreAllMocks();
 });
 
+// The root shell renders <html>/<body>, which React hoists onto the document
+// itself, so the RTL container stays empty. Assert on the document body instead.
+function paintedText() {
+  return document.body.textContent?.trim() ?? "";
+}
+
 // Assert only that the router mounts and paints, never page content:
 // routes are rewritten as the app is built and this must keep passing.
 describe("App routing", () => {
   it("renders the index route", async () => {
-    const { container } = renderAt("/");
+    renderAt("/");
 
-    await waitFor(() => expect(container.firstChild).not.toBeNull());
+    await waitFor(() => expect(paintedText()).not.toBe(""));
   });
 
   it("renders the not-found route", async () => {
     vi.spyOn(console, "warn").mockImplementation(() => undefined);
 
-    const { container } = renderAt("/this-route-does-not-exist");
+    renderAt("/this-route-does-not-exist");
 
-    await waitFor(() => expect(container.firstChild).not.toBeNull());
+    await waitFor(() => expect(paintedText()).not.toBe(""));
   });
 });
