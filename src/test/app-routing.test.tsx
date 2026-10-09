@@ -35,6 +35,8 @@ describe("App routing", () => {
     await renderAt("/");
 
     await waitFor(() => expect(paintedText()).not.toBe(""));
+    // The root error boundary must not be what painted.
+    expect(paintedText()).not.toContain("This page didn't load");
   });
 
   it("renders the not-found route", async () => {
