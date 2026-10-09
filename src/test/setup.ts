@@ -18,3 +18,19 @@ Object.defineProperty(window, "matchMedia", {
     dispatchEvent: () => {},
   }),
 });
+
+
+// jsdom has no IntersectionObserver; scroll-reveal animations need one to mount.
+class MockIntersectionObserver {
+  readonly root = null;
+  readonly rootMargin = "";
+  readonly thresholds = [];
+  observe() {}
+  unobserve() {}
+  disconnect() {}
+  takeRecords() {
+    return [];
+  }
+}
+Object.defineProperty(window, "IntersectionObserver", { writable: true, value: MockIntersectionObserver });
+Object.defineProperty(globalThis, "IntersectionObserver", { writable: true, value: MockIntersectionObserver });
