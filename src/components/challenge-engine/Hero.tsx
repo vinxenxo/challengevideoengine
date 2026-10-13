@@ -1,28 +1,8 @@
-import { ArrowDownRight, Play } from "lucide-react";
-import { motion } from "framer-motion";
-import { projectStatus } from "@/data/challenge-engine";
-import { ProceduralVisual } from "./ProceduralVisual";
-import { TechnicalLabel } from "./Primitives";
-
+import { ArrowDown, ArrowUpRight } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { positioning, projectStatus } from '@/data/challenge-engine';
+import { ProceduralVisual } from './ProceduralVisual';
+import { TechnicalLabel } from './Primitives';
 export function Hero() {
-  return (
-    <section className="hero" id="top">
-      <div className="hero-procedural"><ProceduralVisual type="forces" /></div>
-      <motion.div className="hero-copy" initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
-        <TechnicalLabel className="eyebrow"><span /> CREATIVE PRODUCTION SYSTEM</TechnicalLabel>
-        <h1>TURN CHALLENGES<br />INTO CONTENT PEOPLE<br /><em>WANT TO WATCH.</em></h1>
-        <p className="hero-lead">Challenge Engine is a creative production system for building visually engaging challenge videos and audiovisual experiences — combining challenge mechanics, motion, sound and social-first presentation into one repeatable format.</p>
-        <p className="proof-line">{projectStatus.challengeFormats} CHALLENGE FORMATS <i /> {projectStatus.visualWorlds} VISUAL WORLDS <i /> REPEATABLE PRODUCTION</p>
-        <div className="hero-actions"><a href="#experience" className="button-primary"><Play size={15} fill="currentColor" /> EXPLORE THE EXPERIENCE</a><a href="#how" className="button-secondary">SEE HOW IT WORKS <ArrowDownRight size={16} /></a></div>
-      </motion.div>
-      <motion.div className="engine-shell" initial={{ opacity: 0, x: 24 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.7, delay: 0.15 }}>
-        <div className="engine-window product-preview">
-          <div className="engine-window-head"><TechnicalLabel>CHALLENGE EXPERIENCE / CONCEPT PREVIEW</TechnicalLabel></div>
-          <div className="engine-screen preview-screen"><ProceduralVisual type="waves" compact /><span className="frame-corner corner-a" /><span className="frame-corner corner-b" /><div className="preview-caption"><b>KEY</b><span>Geometric Waves world</span></div></div>
-          <dl className="engine-data"><div><dt>FORMAT</dt><dd>CHALLENGE VIDEO</dd></div><div><dt>VISUAL WORLD</dt><dd>GEOMETRIC WAVES</dd></div><div><dt>FRAME</dt><dd>VERTICAL 9:16</dd></div><div><dt>SOUND</dt><dd>CREATIVE DIRECTION</dd></div></dl>
-        </div>
-        <p className="concept-note">PROCEDURAL VISUAL / PRODUCT DIRECTION — ILLUSTRATIVE, NOT A RENDER</p>
-      </motion.div>
-    </section>
-  );
+  return <><section className="hero" id="top"><div className="hero-art"><ProceduralVisual type="waves"/></div><div className="hero-inner"><div className="hero-topline"><TechnicalLabel>DETERMINISTIC CREATIVE TECHNOLOGY</TechnicalLabel><span className="hero-index">SYSTEM / 001</span></div><h1><span className="hero-brand-name">Challenge Engine</span>Make the challenge clear.<br/><em>Make the visual<br/>impossible to ignore.</em></h1><p className="hero-lead">{positioning.category}</p><div className="hero-actions"><Button asChild><a href="#formats">Explore the Engine <ArrowUpRight/></a></Button><Button asChild variant="outline"><a href="#architecture">Explore the Architecture <ArrowDown/></a></Button></div><div className="hero-disclosure"><span className="status-badge status-active"><i/>ENGINEERING, NOT PUBLIC PRODUCTION</span><p>Renderer OFF. Browser procedural illustration—not a finished video.</p></div></div><span className="art-label">FIG. 01 / SEEDED WAVE FIELD</span></section><div className="inventory-strip"><div><strong>{String(projectStatus.challengeFormats).padStart(2,'0')}</strong><span>Canonical<br/>challenge mechanics</span></div><div><strong>{String(projectStatus.visualWorlds).padStart(2,'0')}</strong><span>Procedural<br/>visual worlds</span></div><div><strong>{String(projectStatus.contentPillars).padStart(2,'0')}</strong><span>Connected<br/>content pillars</span></div><a href="#roadmap"><span className="status-badge status-active"><i/>C11-D · IN VALIDATION</span><small>Precision before production <ArrowDown size={14}/></small></a></div></>;
 }
