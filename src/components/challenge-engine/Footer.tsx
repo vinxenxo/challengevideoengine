@@ -1,21 +1,7 @@
-import { ArrowUpRight } from "lucide-react";
-import { navItems } from "@/data/challenge-engine";
-import { ProceduralVisual } from "./ProceduralVisual";
-import { TechnicalLabel } from "./Primitives";
-
+import { ArrowDown, ArrowUpRight } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { navItems, positioning, projectStatus } from '@/data/challenge-engine';
+import { TechnicalLabel } from './Primitives';
 export function PhilosophyAndFooter() {
-  return <>
-    <section className="final-cta"><div className="final-visual"><ProceduralVisual type="symmetry" /></div><div className="section-inner">
-      <TechnicalLabel>CHALLENGE ENGINE</TechnicalLabel>
-      <h2>TURN GREAT CHALLENGES<br />INTO <em>REPEATABLE CONTENT.</em></h2>
-      <p>Challenge Engine is being built as a new kind of creative production system — where challenge design, visual identity, motion and sound can work together as one repeatable format.</p>
-      <div><a href="#experience" className="button-primary">EXPLORE THE EXPERIENCE <ArrowUpRight size={16} /></a><a href="#status" className="button-secondary">VIEW THE PROJECT</a></div>
-    </div></section>
-    <footer>
-      <div className="footer-brand"><span className="brand-mark">CE</span><div><b>CHALLENGE ENGINE</b><small>CHALLENGE-DRIVEN AUDIOVISUAL CONTENT SYSTEM</small></div></div>
-      <nav>{navItems.map(([l, h]) => <a key={l} href={h}>{l}</a>)}</nav>
-      <div className="footer-copy"><p>Built to turn challenge ideas into repeatable audiovisual experiences.</p><p className="footer-small">Behind the experience is a deterministic, modular and traceable production architecture.</p><small>C11-D · D7.5 FROZEN · D8.0 NEXT</small></div>
-      <span className="footer-lab">CIBERPUNK.ES / LAB</span>
-    </footer>
-  </>;
+  return <><section className="final-cta"><div className="section-inner"><TechnicalLabel>THE CREATIVE LABORATORY OF PRECISION</TechnicalLabel><h2>Distinctive content.<br/><em>Deliberate systems.</em></h2><p>{positioning.tagline}</p><div className="final-actions"><Button asChild><a href="#formats">Explore the Engine <ArrowUpRight/></a></Button><Button asChild variant="outline"><a href="#architecture">Explore the Architecture <ArrowDown/></a></Button></div><small>Technical collaboration contact is not configured. No public production or signup flow.</small></div></section><footer><div className="footer-top"><a className="brand" href="#top"><span className="wordmark-icon">[c/e]</span><span>CHALLENGE<br/>ENGINE</span></a><p>A deterministic creative-production framework for challenge-driven vertical audiovisual content.</p><nav aria-label="Footer navigation">{navItems.map(([label,href])=><a key={href} href={href}>{label}</a>)}</nav></div><div className="footer-bottom"><span>{projectStatus.phase}</span><span>RENDERER {projectStatus.renderer} · RELEASE AUTHORITY {projectStatus.releaseAuthority}</span><span>{projectStatus.date}</span></div></footer></>;
 }

@@ -10,3 +10,6 @@
 <!-- LOVABLE:END -->
 
 - Keep Challenge Engine as a single anchored editorial experience with typed content data and reusable section components, because its architecture is the product narrative.
+
+- Keep reusable product facts and engineering dispositions in the typed central content model, because validation and production authorization must never diverge across sections.
+- Use the existing Canvas visual module for browser illustrations with seeded behavior and visibility/reduced-motion cleanup, because demonstrations must stay distinct from the proprietary production renderer.
