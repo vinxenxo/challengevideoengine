@@ -1,56 +1,31 @@
-import { Activity, Eye, Gamepad2, Palette, Target } from "lucide-react";
-import { benefits, challenges, contentWorlds, experienceParts, loopFamilies, steps } from "@/data/challenge-engine";
-import { ProceduralVisual } from "./ProceduralVisual";
-import { Reveal, SectionHeader, TechnicalLabel } from "./Primitives";
-
-const partIcons = [Gamepad2, Palette, Activity, Eye];
-
+import { useState } from 'react';
+import { Activity, ArrowDown, Check, Gamepad2, Minus, Palette, Pause, Play, RotateCcw, Volume2 } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { challenges, contentWorlds, experienceParts, isList, isNotList, loopFamilies, positioning, steps, useCases } from '@/data/challenge-engine';
+import { ProceduralVisual } from './ProceduralVisual';
+import { SectionHeader, TechnicalLabel } from './Primitives';
+const icons = [Gamepad2, Palette, Activity, Volume2];
 export function WhatItIs() {
-  return <section className="section intro-section" id="what"><div className="section-inner">
-    <SectionHeader label="WHAT IT IS" title={<>MORE THAN A TEMPLATE.<br /><span>A SYSTEM FOR CREATING CHALLENGE CONTENT.</span></>} description="Challenge Engine is designed around a simple idea: a great challenge can become much more than a game mechanic. It can become a repeatable video format with its own visual identity, motion language, sound and editorial style." />
-    <div className="layer-grid">{experienceParts.map((part, i) => { const Icon = partIcons[i] ?? Gamepad2; return <Reveal key={part.title} delay={i * .07} className="layer-card"><Icon /><h3>{part.title}</h3><p>{part.text}</p></Reveal>; })}</div>
-  </div></section>;
+  return <section className="section system-section" id="system"><div className="section-inner"><div className="editorial-split"><SectionHeader label="01 / THE SYSTEM" title={<>Creative ambition.<br/><span>Engineering discipline.</span></>}/><div className="intro-copy"><p>{positioning.benefit}</p><p>Disconnected tools mean repeating the setup, losing visual consistency and struggling to recreate a result. Challenge Engine is designed to bring those decisions into one inspectable system.</p></div></div><div className="comparison"><div><TechnicalLabel>WHAT IT IS</TechnicalLabel><ul>{isList.map(text=><li key={text}><Check/>{text}</li>)}</ul></div><div><TechnicalLabel>WHAT IT IS NOT</TechnicalLabel><ul>{isNotList.map(text=><li key={text}><Minus/>{text}</li>)}</ul></div></div></div></section>;
 }
-
-export function HowItWorks() {
-  return <section className="section" id="how"><div className="section-inner">
-    <SectionHeader label="HOW IT WORKS" title={<>FROM IDEA<br /><span>TO REPEATABLE FORMAT.</span></>} />
-    <ol className="steps-grid">{steps.map((step, i) => <Reveal key={step.id} delay={i * .08} className="step-card"><span className="step-id">{step.id}</span><h3>{step.title}</h3><p>{step.text}</p></Reveal>)}</ol>
-  </div></section>;
+export function FourPartExperience() {
+  return <section className="section anatomy-section"><div className="section-inner"><SectionHeader label="02 / THE EXPERIENCE" title={<>Four parts.<br/><span>One creative direction.</span></>} description="The architecture is designed to coordinate an idea, its visual identity, its behavior and its audiovisual layer. Preparation does not imply finished compositing or export."/><div className="anatomy-grid">{experienceParts.map((part,i)=>{const Icon=icons[i]??Activity;return <article key={part.title}><div className="anatomy-art"><Icon/><span>{String(i+1).padStart(2,'0')}</span></div><TechnicalLabel>{part.label}</TechnicalLabel><h3>{part.title}</h3><p>{part.text}</p></article>;})}</div></div></section>;
 }
-
 export function ContentWorlds() {
-  return <section className="section" id="experience"><div className="section-inner">
-    <SectionHeader label="EXPERIENCE" title={<>THREE WAYS TO EXPERIENCE<br /><span>CHALLENGE ENGINE.</span></>} />
-    <div className="world-grid">{contentWorlds.map((world, index) => <Reveal key={world.title} delay={index * .08} className="world-card visual-card"><div className="visual-card-art"><ProceduralVisual type={world.visual} compact /></div><div className="world-index">{world.index}</div><h3>{world.title}</h3><p>{world.text}</p></Reveal>)}</div>
-  </div></section>;
+  return <section className="section formats-section" id="formats"><div className="section-inner"><SectionHeader label="03 / CONTENT FORMATS" title={<>Different experiences.<br/><span>A shared foundation.</span></>} description="Three distinct content pillars. One long-term production vision. Shared-context validation is not production-export availability."/><div className="pillar-list">{contentWorlds.map((world,i)=><article className="pillar" key={world.title}><div className="pillar-art"><ProceduralVisual type={world.visual} compact/><span>0{i+1}</span></div><div className="pillar-copy"><TechnicalLabel>{world.label}</TechnicalLabel><h3>{world.title}</h3><p>{world.text}</p><span className="pillar-state">{world.status}</span></div></article>)}</div></div></section>;
 }
-
 export function Challenges() {
-  return <section className="section challenges-section" id="challenges"><div className="section-inner">
-    <SectionHeader label="THE CHALLENGE LIBRARY" title={<>NINE CHALLENGE FORMATS.<br /><span>ONE CREATIVE SYSTEM.</span></>} description="The current Challenge Engine baseline contains nine recovered and normalized challenge formats — giving the system a real content foundation rather than a single demo mechanic." />
-    <div className="challenge-grid">{challenges.map((name, index) => <Reveal key={name} delay={(index % 3) * .06} className="challenge-card"><div className={`challenge-glyph glyph-${(index % 5) + 1}`}><span /><i /><b>{String(index + 1).padStart(2, "0")}</b></div><h3>{name}</h3><p className="challenge-desc">Challenge format</p></Reveal>)}</div>
-  </div></section>;
+  return <section className="section challenge-section" id="challenges"><div className="section-inner"><div className="editorial-split"><SectionHeader label="04 / THE CHALLENGE CATALOG" title={<>Nine mechanics.<br/><span>Not nine templates.</span></>}/><p className="intro-copy">A canonical catalog gives the system a defined mechanical foundation. Names below identify documented formats; proprietary rules are not inferred or exposed.</p></div><div className="challenge-grid">{challenges.map((name,i)=><article className="challenge-item" key={name}><span className="challenge-number">/{String(i+1).padStart(2,'0')}</span><div className={`mechanic-symbol symbol-${i%3}`} aria-hidden="true"><i/><b/></div><h3>{name}</h3><p>Canonical challenge mechanic</p></article>)}</div></div></section>;
 }
-
 export function VisualSystems() {
-  const drills = ["TRACKING", "SACCADE", "PURSUIT", "PERIPHERAL"];
-  return <>
-    <section className="section loops-section" id="worlds"><div className="section-inner">
-      <SectionHeader label="VISUAL WORLDS" title={<>FIVE VISUAL WORLDS.<br /><span>COUNTLESS WAYS TO FEEL THEM.</span></>} description="Same system. Never the same-looking video." />
-      <div className="loop-grid">{loopFamilies.map((family, index) => <Reveal key={family.name} className={`loop-card loop-card-${index + 1}`}><ProceduralVisual type={family.type} compact /><div><TechnicalLabel>WORLD {String(index + 1).padStart(2, "0")}</TechnicalLabel><h3>{family.name}</h3><p>{family.text}</p></div></Reveal>)}</div>
-    </div></section>
-    <section className="section drills-section"><div className="section-inner drill-layout">
-      <div><SectionHeader label="ATTENTION" title={<>DESIGNED TO<br /><span>HOLD ATTENTION.</span></>} description="Challenge Engine treats motion as part of the experience — not decoration. Movement can create anticipation, visual tension, focus and rhythm." /><p className="section-copy">Visual Drills are the clearest example: motion deliberately designed around tracking, pursuit, saccades and peripheral awareness.</p></div>
-      <div className="drill-orbit"><div className="orbit-center"><Target /><small>ATTENTION<br />BY DESIGN</small></div>{drills.map((name, i) => <div key={name} className={`orbit-item orbit-item-${i + 1}`}><span>{name}</span></div>)}</div>
-    </div></section>
-  </>;
+  const [selected,setSelected]=useState(0),[seed,setSeed]=useState(2718),[paused,setPaused]=useState(false);
+  const world=loopFamilies[selected]??loopFamilies[0];
+  if(!world) return null;
+  return <section className="section lab-section" id="worlds"><div className="section-inner"><div className="editorial-split"><SectionHeader label="05 / THE PROCEDURAL LAB" title={<>A visual language.<br/><span>Defined by mathematics.</span></>}/><p className="intro-copy">Five visual worlds explore different kinds of ordered behavior. This browser lab illustrates their mathematical character; it does not activate the D renderer or create production media.</p></div><div className="lab-toolbar" role="group" aria-label="Visual world selector">{loopFamilies.map((item,i)=><Button key={item.type} variant="ghost" aria-pressed={selected===i} onClick={()=>setSelected(i)} className={selected===i?'world-choice selected':'world-choice'}><span>0{i+1}</span>{item.name}</Button>)}</div><div className="visual-lab"><ProceduralVisual type={world.type} seed={seed} paused={paused}/><div className="lab-corner top"><TechnicalLabel>LIVE MATHEMATICAL ILLUSTRATION</TechnicalLabel><span>NO PRODUCTION OUTPUT</span></div><div className="lab-title"><TechnicalLabel>{world.formula}</TechnicalLabel><h3>{world.name}</h3></div></div><div className="lab-bottom"><p aria-live="polite">{world.text}</p><div className="lab-controls"><label htmlFor="lab-seed">SEED<input id="lab-seed" type="number" min="0" max="999999" value={seed} onChange={event=>{const value=Number(event.target.value);if(Number.isFinite(value))setSeed(Math.max(0,Math.min(999999,Math.trunc(value))));}}/></label><Button variant="outline" size="icon" aria-label="Reset seed" title="Reset seed" onClick={()=>setSeed(2718)}><RotateCcw/></Button><Button variant="outline" size="icon" aria-label={paused?'Play visualization':'Pause visualization'} title={paused?'Play visualization':'Pause visualization'} onClick={()=>setPaused(!paused)}>{paused?<Play/>:<Pause/>}</Button></div></div><p className="lab-footnote">Seed-defined paths · motion reduced to a static view when requested · browser illustration, not a product screenshot or exported video.</p></div></section>;
 }
-
-export function VisualIdentity() {
-  return <section className="section asset-section"><div className="section-inner">
-    <SectionHeader label="VISUAL IDENTITY" title={<>CONSISTENCY<br /><span>WITHOUT REPETITION.</span></>} description="A reusable visual system makes it possible to build a recognizable identity without forcing every video to look the same." />
-    <div className="benefit-grid">{benefits.map((b, i) => <Reveal key={b.title} delay={i * .08} className="benefit"><h3>{b.title}</h3><p>{b.text}</p></Reveal>)}</div>
-    <details className="tech-details"><summary>Technical detail</summary><p>Visual assets are organized into declarative asset families. Identity, family and role stay separate, so an asset can be reused across formats without the formats collapsing into one. Where evidence for a family is missing, it is recorded as unknown rather than guessed.</p></details>
-  </div></section>;
+export function HowItWorks() {
+  return <section className="section workflow-section" id="how"><div className="section-inner"><SectionHeader label="06 / FROM INTENT TO PLAN" title={<>Resolve the decisions.<br/><span>Then validate the workflow.</span></>}/><ol className="workflow">{steps.map((step,i)=><li key={step.title}><span className="workflow-id">0{i+1}</span><div><h3>{step.title}</h3><p>{step.text}</p></div><TechnicalLabel>{step.state}</TechnicalLabel>{i<3&&<ArrowDown className="workflow-arrow"/>}</li>)}</ol><div className="gate-note"><span>PRODUCTION GATE</span><p>Prepared context → validated payload → <strong>renderer authorization required</strong></p></div></div></section>;
+}
+export function UseCases() {
+  return <section className="section usecases-section"><div className="section-inner"><SectionHeader label="08 / PRACTICAL WORKFLOWS" title={<>For people who build<br/><span>recognizable content.</span></>} description="Intended use cases—not customer testimonials or claims of available production deployment."/><div className="usecase-grid">{useCases.map(item=><article key={item.title}><TechnicalLabel>{item.audience}</TechnicalLabel><h3>{item.title}</h3><p>{item.text}</p></article>)}</div></div></section>;
 }
