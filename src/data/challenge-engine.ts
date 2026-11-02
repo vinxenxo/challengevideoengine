@@ -1,5 +1,5 @@
 export type StatusTone = 'active' | 'closed' | 'blocked' | 'planned';
-export type VisualType = 'waves' | 'bloom' | 'symmetry' | 'particles' | 'forces';
+export type VisualType = 'waves' | 'bloom' | 'symmetry' | 'particles' | 'forces' | 'lissajous' | 'orbits' | 'lattice' | 'spiral' | 'helix' | 'terrain' | 'radar' | 'moire' | 'tunnel' | 'rings';
 export const projectStatus = {
   date: 'October 13, 2026', simulation: 'C11-C 2.19.12', phase: 'C11-D · ENGINEERING VALIDATION',
   challengeFormats: 9, visualWorlds: 5, contentPillars: 3,
